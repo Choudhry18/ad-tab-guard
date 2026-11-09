@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ad Tab Guard</title>
+    <style>
+      :root { color-scheme: light dark; }
+      * { box-sizing: border-box; }
+      body {
+        width: 350px;
+        margin: 0;
+        padding: 16px;
+        background: #0b1020;
+        color: #f8fafc;
+        font: 13px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      h1 { margin: 0; font-size: 18px; }
+      h2 { margin: 18px 0 8px; color: #cbd5e1; font-size: 12px; text-transform: uppercase; }
+      p { margin: 5px 0 0; color: #94a3b8; }
+      .header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+      .switch { display: flex; align-items: center; gap: 7px; white-space: nowrap; }
+      .site-card {
+        margin-top: 14px;
+        padding: 12px;
+        border: 1px solid #29334d;
+        border-radius: 12px;
+        background: #121a2e;
+      }
+      #site { overflow: hidden; color: #e2e8f0; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+      button {
+        width: 100%;
+        margin-top: 10px;
+        padding: 9px 11px;
+        border: 0;
+        border-radius: 8px;
+        background: #22c55e;
+        color: #052e16;
+        cursor: pointer;
+        font-weight: 750;
+      }
+      button.secondary { background: #26334f; color: #e2e8f0; }
+      button.danger { background: #3b1f2b; color: #fecdd3; }
+      button.small { width: auto; margin: 0; padding: 5px 8px; font-size: 11px; }
+      label.row { display: flex; align-items: center; gap: 8px; margin-top: 12px; color: #cbd5e1; }
+      .warning { color: #fbbf24; font-size: 11px; }
+      #history { display: grid; gap: 7px; max-height: 220px; overflow-y: auto; }
+      .event { padding: 9px; border-radius: 9px; background: #121a2e; }
+      .event-main { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .event-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 6px; color: #94a3b8; font-size: 11px; }
+      .empty { padding: 14px; border: 1px dashed #334155; border-radius: 9px; text-align: center; color: #64748b; }
+      .footer { display: flex; gap: 8px; }
+      .footer button { flex: 1; }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div>
+        <h1>Ad Tab Guard</h1>
+        <p><span id="count">0</span> suspicious tabs closed</p>
+      </div>
+      <label class="switch"><input id="enabled" type="checkbox" /> Enabled</label>
+    </div>
+
+    <section class="site-card">
+      <div id="site">Checking this tab…</div>
+      <p id="site-status">Protection is off for this site.</p>
+      <button id="toggle-site" type="button">Protect this site</button>
+    </section>
+
+    <label class="row">
+      <input id="protect-all" type="checkbox" />
+      Protect every website
+    </label>
+    <p class="warning">Can close legitimate cross-site tabs and undo cross-site links in the current tab.</p>
+
+    <label class="row">
+      <input id="retry-clicks" type="checkbox" />
+      Retry the original click once
+    </label>
+    <label class="row">
+      <input id="allow-intentional-tabs" type="checkbox" />
+      Allow Cmd/Ctrl/middle-click tabs
+    </label>
+
+    <h2>Recently closed</h2>
+    <div id="history"></div>
+    <div class="footer">
+      <button id="clear-history" class="danger" type="button">Clear history</button>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
